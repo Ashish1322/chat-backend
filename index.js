@@ -29,7 +29,7 @@ mongoose
 
 // adding  server check route
 app.get("/", (req, res) =>
-  res.json({ success: true, message: "Server is Running Fine" })
+  res.json({ success: true, message: "Server main is Running Fine" })
 );
 
 // Special Route: Which will server the uploads folder
