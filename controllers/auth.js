@@ -139,13 +139,21 @@ const activateAccount = async (req, res) => {
 };
 
 const uploadProfilPic = async (req, res) => {
-  let profilePic = `${process.env.BACKEND_URL}/uploads/${req.file.filename}`;
-  // console.log(`http://localhost:8000/static/${req.file.filename}`);
-  await User.findByIdAndUpdate(req.user._id, {
-    profilePic: profilePic,
-  });
+  if (req.file) {
+    await User.findByIdAndUpdate(req.user._id, {
+      profilePic: req.file.location,
+    });
 
-  return res.json({ success: true, message: "File Uploaded", profilePic });
+    return res.json({
+      success: true,
+      message: "File Uploaded",
+      profilePic: req.file.location,
+    });
+  }
+  return res.json({
+    success: false,
+    message: "Failed to Uploaded",
+  });
 };
 
 module.exports = { login, signup, activateAccount, uploadProfilPic };
